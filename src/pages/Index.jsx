@@ -17,10 +17,8 @@ import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import MarkdownContent from "@/components/MarkdownContent";
 import { supabase } from "@/integrations/supabase/client";
+import { adminAuth } from "@/lib/admin-auth";
 
-const ADMIN_USERNAME = import.meta.env.VITE_BLOG_ADMIN_USERNAME || "";
-const ADMIN_PASSWORD = import.meta.env.VITE_BLOG_ADMIN_PASSWORD || "";
-const ADMIN_TOKEN = ADMIN_USERNAME && ADMIN_PASSWORD ? btoa(`${ADMIN_USERNAME}:${ADMIN_PASSWORD}`) : "";
 const DEFAULT_FOOTER_MARKDOWN = "## 浏览\n- [全部文章](/)\n- [随笔](/?tags=随笔)\n- [设计](/?tags=设计)\n- [阅读](/?tags=阅读)\n\n## 友情链接\n- [郑虎的站点](https://chenzhenghu.mynocode.host/)";
 
 const parseFooterMarkdown = (markdown) => {
@@ -73,8 +71,14 @@ const Index = () => {
   const [authOpen, setAuthOpen] = useState(false);
   const [footerEditorOpen, setFooterEditorOpen] = useState(false);
   const [footerDraft, setFooterDraft] = useState(DEFAULT_FOOTER_MARKDOWN);
-  const [isAdmin, setIsAdmin] = useState(() => Boolean(ADMIN_TOKEN) && window.sessionStorage.getItem("blog-basic-auth") === ADMIN_TOKEN);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [auth, setAuth] = useState({ username: "", password: "" });
+
+  useEffect(() => {
+    let active = true;
+    adminAuth.ready.then(() => { if (active) setIsAdmin(adminAuth.isLoggedIn()); });
+    return () => { active = false; };
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -187,18 +191,17 @@ const Index = () => {
     onError: () => toast.error("页脚保存失败", { description: "内容已保留，请稍后重试" }),
   });
 
-  const submitAuth = (event) => {
+  const submitAuth = async (event) => {
     event.preventDefault();
-    if (!ADMIN_TOKEN) {
+    if (!adminAuth.isConfigured) {
       toast.error("管理员账号尚未配置");
       return;
     }
-    const token = btoa(`${auth.username}:${auth.password}`);
-    if (token !== ADMIN_TOKEN) {
+    const ok = await adminAuth.login(auth.username, auth.password);
+    if (!ok) {
       toast.error("用户名或密码错误");
       return;
     }
-    window.sessionStorage.setItem("blog-basic-auth", token);
     setIsAdmin(true);
     setAuthOpen(false);
     setAuth({ username: "", password: "" });
@@ -207,7 +210,7 @@ const Index = () => {
   };
 
   const logout = () => {
-    window.sessionStorage.removeItem("blog-basic-auth");
+    adminAuth.logout();
     setIsAdmin(false);
     setFooterEditorOpen(false);
     toast.success("已退出管理模式");

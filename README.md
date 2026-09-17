@@ -16,7 +16,15 @@
 | --- | --- |
 | `VITE_SUPABASE_URL` | Supabase 项目 URL |
 | `VITE_SUPABASE_ANON_KEY` | Supabase anon（publishable）key |
-| `VITE_BLOG_ADMIN_USERNAME` / `VITE_BLOG_ADMIN_PASSWORD` | `/admin` 后台的客户端登录凭据 |
+| `VITE_SHA256_PASSWORD` | `sha256("<用户名>:<密码>")`，后台登录凭据的摘要 |
+
+管理员登录采用 SHA-256 摘要比对：打包产物中只包含摘要，不包含明文密码；
+sessionStorage 中保存的是二次哈希的会话令牌。重置密码：
+
+```bash
+node scripts/hash-password.mjs <username> <password>
+# 输出写入 .env 的 VITE_SHA256_PASSWORD，重新 yarn build
+```
 
 ## 开发
 
@@ -38,5 +46,15 @@ yarn preview
 - `reader_actions` — 读者的点赞 / 收藏（`post_id`、`reader_id`、`action_type`）
 - `site_settings` — 站点设置（`footer_markdown` 等，key/value）
 
-三张表均已启用 RLS。当前应用为纯前端架构（后台仅由客户端 basic-auth 保护），
+三张表均已启用 RLS。当前应用为纯前端架构（后台由客户端 SHA-256 摘要门禁保护），
 因此策略对所有匿名请求开放；如需收紧，建议将写操作迁移到 Edge Function 之后再调整策略。
+
+## 部署（GitHub Pages）
+
+源码在 `master` 分支，构建产物推送到 `gh-pages` 分支并同步一份到 `master` 的 `docs/` 目录：
+
+```bash
+yarn build
+rm -rf docs && cp -r build docs   # docs/ 随 master 提交
+git push -f origin $(git subtree split --prefix=docs):gh-pages
+```

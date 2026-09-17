@@ -4,12 +4,9 @@ import { ArrowLeft, Edit3, Loader2, Plus, Trash2, X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { adminAuth } from "@/lib/admin-auth";
 
-const ADMIN_USERNAME = import.meta.env.VITE_BLOG_ADMIN_USERNAME || "";
-const ADMIN_PASSWORD = import.meta.env.VITE_BLOG_ADMIN_PASSWORD || "";
-const ADMIN_TOKEN = ADMIN_USERNAME && ADMIN_PASSWORD ? btoa(`${ADMIN_USERNAME}:${ADMIN_PASSWORD}`) : "";
 const EMPTY_DRAFT = { title: "", excerpt: "", content: "", tags: "", readingTime: "5 分钟", featured: false };
-const isAuthenticated = () => Boolean(ADMIN_TOKEN) && window.sessionStorage.getItem("blog-basic-auth") === ADMIN_TOKEN;
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -17,16 +14,23 @@ const Admin = () => {
   const queryClient = useQueryClient();
   const isNew = id === "new";
   const isEditor = Boolean(id);
+  const [authed, setAuthed] = useState(false);
   const [draft, setDraft] = useState(EMPTY_DRAFT);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
   useEffect(() => {
-    if (!isAuthenticated()) navigate("/", { replace: true });
+    let active = true;
+    adminAuth.ready.then(() => {
+      if (!active) return;
+      if (!adminAuth.isLoggedIn()) navigate("/", { replace: true });
+      else setAuthed(true);
+    });
+    return () => { active = false; };
   }, [navigate]);
 
   const postsQuery = useQuery({
     queryKey: ["admin-posts"],
-    enabled: isAuthenticated(),
+    enabled: authed,
     queryFn: async () => {
       const { data, error } = await supabase.from("posts").select("*").order("created_at", { ascending: false });
       if (error) throw error;
@@ -103,7 +107,7 @@ const Admin = () => {
     savePost.mutate();
   };
 
-  if (!isAuthenticated()) return null;
+  if (!authed) return null;
 
   return (
     <div className="site-shell admin-shell">
