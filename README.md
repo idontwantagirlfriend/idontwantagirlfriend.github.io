@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# 余白手记
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+一个基于 React + Vite + Tailwind (shadcn/ui) 的个人博客，数据存储在 Supabase（Postgres）中。
 
-## Available Scripts
+## 技术栈
 
-In the project directory, you can run:
+- **前端**: React 18 + Vite 5 + Tailwind CSS + shadcn/ui + TanStack Query + react-router (HashRouter)
+- **后端**: Supabase（`posts` / `reader_actions` / `site_settings` 三张表，supabase-js v2）
+- **部署**: 静态构建，产物输出到 `build/`
 
-### `npm start`
+## 环境变量
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+复制 `.env.example` 为 `.env` 并填写：
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+| 变量 | 说明 |
+| --- | --- |
+| `VITE_SUPABASE_URL` | Supabase 项目 URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase anon（publishable）key |
+| `VITE_BLOG_ADMIN_USERNAME` / `VITE_BLOG_ADMIN_PASSWORD` | `/admin` 后台的客户端登录凭据 |
 
-### `npm test`
+## 开发
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+yarn install
+yarn dev        # http://localhost:8080
+```
 
-### `npm run build`
+## 构建
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+yarn build      # 输出到 build/
+yarn preview
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Supabase 数据结构
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- `posts` — 文章（`slug`、`title`、`excerpt`、`content`、`tags[]`、`reading_time`、`is_featured`、`is_published`、`created_at`）
+- `reader_actions` — 读者的点赞 / 收藏（`post_id`、`reader_id`、`action_type`）
+- `site_settings` — 站点设置（`footer_markdown` 等，key/value）
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+三张表均已启用 RLS。当前应用为纯前端架构（后台仅由客户端 basic-auth 保护），
+因此策略对所有匿名请求开放；如需收紧，建议将写操作迁移到 Edge Function 之后再调整策略。
