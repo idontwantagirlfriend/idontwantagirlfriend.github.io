@@ -25,7 +25,12 @@ const Admin = () => {
       if (!adminAuth.isLoggedIn()) navigate("/", { replace: true });
       else setAuthed(true);
     });
-    return () => { active = false; };
+    // If the session dies while sitting on /admin (sign-out in another tab,
+    // refresh token expired), leave the admin page immediately.
+    const unsubscribe = adminAuth.subscribe(() => {
+      if (active && !adminAuth.isLoggedIn()) navigate("/", { replace: true });
+    });
+    return () => { active = false; unsubscribe(); };
   }, [navigate]);
 
   const postsQuery = useQuery({

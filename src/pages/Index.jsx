@@ -72,12 +72,13 @@ const Index = () => {
   const [footerEditorOpen, setFooterEditorOpen] = useState(false);
   const [footerDraft, setFooterDraft] = useState(DEFAULT_FOOTER_MARKDOWN);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [auth, setAuth] = useState({ username: "", password: "" });
+  const [auth, setAuth] = useState({ email: "", password: "" });
 
   useEffect(() => {
     let active = true;
-    adminAuth.ready.then(() => { if (active) setIsAdmin(adminAuth.isLoggedIn()); });
-    return () => { active = false; };
+    const sync = () => { if (active) setIsAdmin(adminAuth.isLoggedIn()); };
+    adminAuth.ready.then(sync);
+    return adminAuth.subscribe(sync);
   }, []);
 
   useEffect(() => {
@@ -193,18 +194,14 @@ const Index = () => {
 
   const submitAuth = async (event) => {
     event.preventDefault();
-    if (!adminAuth.isConfigured) {
-      toast.error("管理员账号尚未配置");
-      return;
-    }
-    const ok = await adminAuth.login(auth.username, auth.password);
+    const ok = await adminAuth.login(auth.email, auth.password);
     if (!ok) {
-      toast.error("用户名或密码错误");
+      toast.error("邮箱或密码错误");
       return;
     }
     setIsAdmin(true);
     setAuthOpen(false);
-    setAuth({ username: "", password: "" });
+    setAuth({ email: "", password: "" });
     toast.success("管理员身份已验证");
     navigate("/admin");
   };
@@ -319,7 +316,7 @@ const Index = () => {
         <button className="modal-close" type="button" onClick={() => setAuthOpen(false)} aria-label="关闭登录"><X aria-hidden="true" /></button>
         <h2 id="auth-title">管理员登录</h2><p className="form-note">登录后即可进入投稿模式。</p>
         <form onSubmit={submitAuth}>
-          <label>用户名<input autoFocus autoComplete="username" value={auth.username} onChange={(event) => setAuth({ ...auth, username: event.target.value })} required /></label>
+          <label>邮箱<input autoFocus type="email" autoComplete="email" value={auth.email} onChange={(event) => setAuth({ ...auth, email: event.target.value })} required /></label>
           <label>密码<input type="password" autoComplete="current-password" value={auth.password} onChange={(event) => setAuth({ ...auth, password: event.target.value })} required /></label>
           <button className="primary-action" type="submit">登录</button>
         </form>

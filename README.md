@@ -16,15 +16,17 @@
 | --- | --- |
 | `VITE_SUPABASE_URL` | Supabase 项目 URL |
 | `VITE_SUPABASE_ANON_KEY` | Supabase anon（publishable）key |
-| `VITE_SHA256_PASSWORD` | `sha256("<用户名>:<密码>")`，后台登录凭据的摘要 |
 
-管理员登录采用 SHA-256 摘要比对：打包产物中只包含摘要，不包含明文密码；
-sessionStorage 中保存的是二次哈希的会话令牌。重置密码：
+## 管理员登录
 
-```bash
-node scripts/hash-password.mjs <username> <password>
-# 输出写入 .env 的 VITE_SHA256_PASSWORD，重新 yarn build
-```
+采用 Supabase Auth（邮箱 + 密码）：密码由 Supabase 服务端校验并签发会话
+（保存在 localStorage），前端只做 UI 门禁，写操作由数据库层 RLS 强制。
+
+- 在 Supabase 控制台 Authentication → Users 手动创建唯一管理员账号（勾选
+  Auto Confirm），并关闭 "Allow new users to sign up"，防止他人注册。
+- 重置密码：控制台 Users 页对该用户执行 Send password reset / 直接改密码。
+- RLS 策略存档于 `supabase/migrations/20260920_admin_auth_rls.sql`（通过
+  控制台 SQL editor 应用）。
 
 ## 开发
 
@@ -46,8 +48,13 @@ yarn preview
 - `reader_actions` — 读者的点赞 / 收藏（`post_id`、`reader_id`、`action_type`）
 - `site_settings` — 站点设置（`footer_markdown` 等，key/value）
 
-三张表均已启用 RLS。当前应用为纯前端架构（后台由客户端 SHA-256 摘要门禁保护），
-因此策略对所有匿名请求开放；如需收紧，建议将写操作迁移到 Edge Function 之后再调整策略。
+三张表均已启用 RLS（策略见 `supabase/migrations/20260920_admin_auth_rls.sql`）：
+
+- `posts`：匿名只读已发布文章；登录管理员可读写全部（含草稿）。
+- `site_settings`：匿名只读；upsert 仅管理员。
+- `reader_actions`：匿名可读写（读者的点赞 / 收藏，无需登录）。
+
+管理员写权限由 `authenticated` 会话在数据库层强制，绕过前端门禁无法写入。
 
 ## 部署（GitHub Pages）
 
