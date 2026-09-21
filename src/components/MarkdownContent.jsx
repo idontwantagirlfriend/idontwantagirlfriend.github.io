@@ -1,9 +1,18 @@
 import { useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { AlertTriangle, CheckCircle, Info, XCircle } from "lucide-react";
 
-const CODE_GROUP_PATTERN = /::: code-group\s*\n([\s\S]*?)\n:::/g;
+// ::: code-group 代码组与 ```info/```warning/```error/```success 横幅按出现顺序切分
+const SECTION_PATTERN = /::: code-group\s*\n([\s\S]*?)\n:::|```(info|success|warning|error)[^\S\n]*\n([\s\S]*?)```/g;
 const CODE_BLOCK_PATTERN = /```([^\s\[]+)?(?:\s+\[([^\]]+)\])?\s*\n([\s\S]*?)```/g;
+
+const BANNERS = {
+  info: { icon: Info, label: "提示" },
+  success: { icon: CheckCircle, label: "成功" },
+  warning: { icon: AlertTriangle, label: "注意" },
+  error: { icon: XCircle, label: "错误" },
+};
 
 const MarkdownBlock = ({ children }) => (
   <ReactMarkdown
@@ -16,6 +25,17 @@ const MarkdownBlock = ({ children }) => (
     {children}
   </ReactMarkdown>
 );
+
+const Banner = ({ type, source }) => {
+  const banner = BANNERS[type];
+  const Icon = banner.icon;
+  return (
+    <aside className={`md-banner md-banner-${type}`} role="note" aria-label={banner.label}>
+      <Icon className="md-banner-icon" aria-hidden="true" />
+      <div className="md-banner-body"><MarkdownBlock>{source}</MarkdownBlock></div>
+    </aside>
+  );
+};
 
 const CodeGroup = ({ source }) => {
   const tabs = useMemo(() => {
@@ -48,22 +68,26 @@ const CodeGroup = ({ source }) => {
 
 const MarkdownContent = ({ content }) => {
   const sections = useMemo(() => {
+    const source = content || "";
     const result = [];
     let cursor = 0;
     let match;
-    CODE_GROUP_PATTERN.lastIndex = 0;
-    while ((match = CODE_GROUP_PATTERN.exec(content || "")) !== null) {
-      if (match.index > cursor) result.push({ type: "markdown", value: content.slice(cursor, match.index) });
-      result.push({ type: "code-group", value: match[1] });
+    SECTION_PATTERN.lastIndex = 0;
+    while ((match = SECTION_PATTERN.exec(source)) !== null) {
+      if (match.index > cursor) result.push({ type: "markdown", value: source.slice(cursor, match.index) });
+      if (match[1] !== undefined) result.push({ type: "code-group", value: match[1] });
+      else result.push({ type: "banner", banner: match[2], value: match[3].replace(/\n$/, "") });
       cursor = match.index + match[0].length;
     }
-    if (cursor < (content || "").length) result.push({ type: "markdown", value: content.slice(cursor) });
-    return result.length ? result : [{ type: "markdown", value: content || "" }];
+    if (cursor < source.length) result.push({ type: "markdown", value: source.slice(cursor) });
+    return result.length ? result : [{ type: "markdown", value: source }];
   }, [content]);
 
-  return sections.map((section, index) => section.type === "code-group"
-    ? <CodeGroup key={`group-${index}`} source={section.value} />
-    : <MarkdownBlock key={`markdown-${index}`}>{section.value}</MarkdownBlock>);
+  return sections.map((section, index) => {
+    if (section.type === "code-group") return <CodeGroup key={`group-${index}`} source={section.value} />;
+    if (section.type === "banner") return <Banner key={`banner-${index}`} type={section.banner} source={section.value} />;
+    return <MarkdownBlock key={`markdown-${index}`}>{section.value}</MarkdownBlock>;
+  });
 };
 
 export default MarkdownContent;

@@ -1,12 +1,73 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, Edit3, Loader2, Plus, Trash2, X } from "lucide-react";
+import { ArrowLeft, Edit3, Eye, Loader2, Plus, Trash2, X } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import MarkdownContent from "@/components/MarkdownContent";
 import { supabase } from "@/integrations/supabase/client";
 import { adminAuth } from "@/lib/admin-auth";
 
-const EMPTY_DRAFT = { title: "", excerpt: "", content: "", tags: "", readingTime: "5 分钟", featured: false };
+const EMPTY_DRAFT = { title: "", excerpt: "", content: "", tags: [], featured: false };
+
+// 中文按 ~400 字/分钟、拉丁词按 ~200 词/分钟估算阅读时间
+const estimateReadingTime = (content) => {
+  const plain = content
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/:::[\s\S]*?:::/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/[#>*_~`|-]/g, " ");
+  const cjkChars = (plain.match(/[一-鿿]/g) || []).length;
+  const latinWords = plain.replace(/[一-鿿]/g, " ").split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(cjkChars / 400 + latinWords / 200));
+  return `${minutes} 分钟`;
+};
+
+const TagInput = ({ tags, onChange }) => {
+  const inputRef = useRef(null);
+  const [value, setValue] = useState("");
+
+  const commit = (raw) => {
+    const incoming = raw.split(/[,，]/).map((tag) => tag.trim()).filter(Boolean);
+    if (!incoming.length) return;
+    const next = [...tags];
+    incoming.forEach((tag) => { if (!next.includes(tag)) next.push(tag); });
+    onChange(next);
+    setValue("");
+  };
+
+  const handleKeyDown = (event) => {
+    if ((event.key === "Tab" || event.key === "Enter") && value.trim()) {
+      event.preventDefault();
+      commit(value);
+    } else if (event.key === "Enter") {
+      event.preventDefault();
+    } else if (event.key === "Backspace" && !value && tags.length) {
+      onChange(tags.slice(0, -1));
+    }
+  };
+
+  return (
+    <span className="tag-field" onClick={() => inputRef.current?.focus()}>
+      {tags.map((tag) => (
+        <span className="tag-chip" key={tag}>
+          {tag}
+          <button type="button" aria-label={`移除标签 ${tag}`} onClick={(event) => { event.stopPropagation(); onChange(tags.filter((item) => item !== tag)); }}>
+            <X aria-hidden="true" />
+          </button>
+        </span>
+      ))}
+      <input
+        ref={inputRef}
+        value={value}
+        onChange={(event) => { const next = event.target.value; /[,，]/.test(next) ? commit(next) : setValue(next); }}
+        onKeyDown={handleKeyDown}
+        onBlur={() => value.trim() && commit(value)}
+        placeholder={tags.length ? "" : "添加标签"}
+      />
+    </span>
+  );
+};
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -16,6 +77,7 @@ const Admin = () => {
   const isEditor = Boolean(id);
   const [authed, setAuthed] = useState(false);
   const [draft, setDraft] = useState(EMPTY_DRAFT);
+  const [previewing, setPreviewing] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
   useEffect(() => {
@@ -51,8 +113,7 @@ const Admin = () => {
         title: editingPost.title,
         excerpt: editingPost.excerpt,
         content: editingPost.content,
-        tags: editingPost.tags.join(", "),
-        readingTime: editingPost.reading_time,
+        tags: [...editingPost.tags],
         featured: editingPost.is_featured,
       });
     } else if (isNew) setDraft(EMPTY_DRAFT);
@@ -64,8 +125,8 @@ const Admin = () => {
         title: draft.title.trim(),
         excerpt: draft.excerpt.trim(),
         content: draft.content.trim(),
-        tags: draft.tags.split(/[,，]/).map((tag) => tag.trim()).filter(Boolean),
-        reading_time: draft.readingTime.trim() || "5 分钟",
+        tags: draft.tags,
+        reading_time: estimateReadingTime(draft.content),
         is_featured: draft.featured,
       };
       if (draft.featured) {
@@ -105,7 +166,7 @@ const Admin = () => {
 
   const submit = (event) => {
     event.preventDefault();
-    if (!draft.title.trim() || !draft.excerpt.trim() || !draft.tags.trim() || !draft.content.trim()) {
+    if (!draft.title.trim() || !draft.excerpt.trim() || !draft.tags.length || !draft.content.trim()) {
       toast.error("请填写标题、预览文本、标签与正文");
       return;
     }
@@ -125,10 +186,19 @@ const Admin = () => {
               <form className="admin-form" onSubmit={submit}>
                 <label>标题<input autoFocus value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} placeholder="文章标题" required /></label>
                 <label>预览文本<textarea rows="3" value={draft.excerpt} onChange={(event) => setDraft({ ...draft, excerpt: event.target.value })} placeholder="展示在文章列表中的简短介绍" required /></label>
-                <div className="form-grid"><label>标签<input value={draft.tags} onChange={(event) => setDraft({ ...draft, tags: event.target.value })} placeholder="随笔, 创作" required /></label><label>阅读时间<input value={draft.readingTime} onChange={(event) => setDraft({ ...draft, readingTime: event.target.value })} /></label></div>
-                <label>正文（Markdown）<textarea className="markdown-editor" rows="22" value={draft.content} onChange={(event) => setDraft({ ...draft, content: event.target.value })} placeholder="支持标准 Markdown 与 ::: code-group 代码组语法" spellCheck="false" required /></label>
-                <label className="check-field"><input type="checkbox" checked={draft.featured} onChange={(event) => setDraft({ ...draft, featured: event.target.checked })} /> 使用置顶展示样式</label>
-                <div className="admin-form-actions"><button className="secondary-action" type="button" onClick={() => navigate("/admin")}>取消</button><button className="primary-action" type="submit" disabled={savePost.isPending}>{savePost.isPending && <Loader2 className="spin animate-spin" aria-hidden="true" />}{savePost.isPending ? "保存中…" : isNew ? "发布文章" : "保存修改"}</button></div>
+                <label>标签<TagInput tags={draft.tags} onChange={(tags) => setDraft({ ...draft, tags })} /></label>
+                {previewing ? (
+                  <div className="admin-preview">
+                    <h2 className="admin-preview-title">{draft.title.trim() || "未命名文章"}</h2>
+                    <div className="article-body markdown-body">
+                      {draft.content.trim() ? <MarkdownContent content={draft.content} /> : <p className="admin-preview-empty">正文为空。</p>}
+                    </div>
+                  </div>
+                ) : (
+                  <label>正文<textarea className="markdown-editor" rows="22" value={draft.content} onChange={(event) => setDraft({ ...draft, content: event.target.value })} spellCheck="false" required /></label>
+                )}
+                <label className="check-field"><input type="checkbox" checked={draft.featured} onChange={(event) => setDraft({ ...draft, featured: event.target.checked })} /> 置顶</label>
+                <div className="admin-form-actions"><button className="secondary-action" type="button" onClick={() => navigate("/admin")}>取消</button><button className="secondary-action" type="button" onClick={() => setPreviewing(!previewing)}>{previewing ? <Edit3 aria-hidden="true" /> : <Eye aria-hidden="true" />}{previewing ? "编辑" : "预览"}</button><button className="primary-action" type="submit" disabled={savePost.isPending}>{savePost.isPending && <Loader2 className="spin animate-spin" aria-hidden="true" />}{savePost.isPending ? "保存中…" : isNew ? "发布文章" : "保存修改"}</button></div>
               </form>
             )}
           </section>
