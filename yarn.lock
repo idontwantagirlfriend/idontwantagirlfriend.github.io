@@ -221,19 +221,10 @@
     "@babel/helper-string-parser" "^7.27.1"
     "@babel/helper-validator-identifier" "^7.28.5"
 
-"@colors/colors@1.6.0", "@colors/colors@^1.6.0":
-  version "1.6.0"
-  resolved "http://r.npm.sankuai.com/@colors/colors/download/@colors/colors-1.6.0.tgz#ec6cd237440700bc23ca23087f513c75508958b0"
-  integrity sha1-7GzSN0QHALwjyiMIf1E8dVCJWLA=
-
-"@dabh/diagnostics@^2.0.2":
-  version "2.0.3"
-  resolved "http://r.npm.sankuai.com/@dabh/diagnostics/download/@dabh/diagnostics-2.0.3.tgz#7f7e97ee9a725dffc7808d93668cc984e1dc477a"
-  integrity sha1-f36X7ppyXf/HgI2TZozJhOHcR3o=
-  dependencies:
-    colorspace "1.1.x"
-    enabled "2.0.x"
-    kuler "^2.0.0"
+"@ecies/ciphers@^0.2.6":
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@ecies/ciphers/-/ciphers-0.2.6.tgz#e7cdc4688de3c224e03d479e3227bcece44cbeab"
+  integrity sha512-patgsRPKGkhhoBjETV4XxD0En4ui5fbX0hzayqI3M8tvNMGUoUvmyYAIWwlxBc1KX5cturfqByYdj5bYGRpN9g==
 
 "@esbuild/aix-ppc64@0.21.5":
   version "0.21.5"
@@ -479,18 +470,22 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@meituan-nocode/vite-plugin-dev-logger@^0.1.0":
-  version "0.1.0"
-  resolved "http://r.npm.sankuai.com/@meituan-nocode/vite-plugin-dev-logger/download/@meituan-nocode/vite-plugin-dev-logger-0.1.0.tgz#29dbbe17e022f0a856dd8925f34a7bb08d6c5db0"
-  integrity sha1-Kdu+F+Ai8KhW3Ykl80p7sI1sXbA=
-  dependencies:
-    winston "^3.17.0"
-    winston-daily-rotate-file "^5.0.0"
+"@noble/ciphers@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@noble/ciphers/-/ciphers-1.3.0.tgz#f64b8ff886c240e644e5573c097f86e5b43676dc"
+  integrity sha512-2I0gnIVPtfnMw9ee9h1dJG7tp81+8Ob3OJb3Mv37rx5L40/b0i7djjCVvGOVqc9AEIQyvyu1i6ypKdFw8R8gQw==
 
-"@meituan-nocode/vite-plugin-nocode-html-transformer@^0.3.1":
-  version "0.3.1"
-  resolved "http://r.npm.sankuai.com/@meituan-nocode/vite-plugin-nocode-html-transformer/download/@meituan-nocode/vite-plugin-nocode-html-transformer-0.3.1.tgz#0fa8a99ce544e31cc3e04869485fafe7e5fb32fa"
-  integrity sha1-D6ipnOVE4xzD4EhpSF+v5+X7Mvo=
+"@noble/curves@^1.9.7":
+  version "1.9.7"
+  resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-1.9.7.tgz#79d04b4758a43e4bca2cbdc62e7771352fa6b951"
+  integrity sha512-gbKGcRUYIjA3/zCCNaWDciTMFI0dCkvou3TL8Zmy5Nc7sJ47a0jtOeZoTaMxkuqRo9cRhjOdZJXegxYE5FN/xw==
+  dependencies:
+    "@noble/hashes" "1.8.0"
+
+"@noble/hashes@1.8.0", "@noble/hashes@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@noble/hashes/-/hashes-1.8.0.tgz#cee43d801fcef9644b11b8194857695acd5f815a"
+  integrity sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -1241,6 +1236,46 @@
   dependencies:
     "@supabase/node-fetch" "^2.6.14"
 
+"@supabase/cli-darwin-arm64@2.117.0":
+  version "2.117.0"
+  resolved "https://registry.yarnpkg.com/@supabase/cli-darwin-arm64/-/cli-darwin-arm64-2.117.0.tgz#bffec0a0197b766e775316656584740065ba6d51"
+  integrity sha512-MQVIxL+B5/U9xiXcUtky0vJQ5Qe0qhGkK2JLGwi5BAo5XxcC+iP+KCsVB1/2zzYT+d+fOlZnKyTFFWYO6Ut1sw==
+
+"@supabase/cli-darwin-x64@2.117.0":
+  version "2.117.0"
+  resolved "https://registry.yarnpkg.com/@supabase/cli-darwin-x64/-/cli-darwin-x64-2.117.0.tgz#3da9ab36f9f2dbe9785377423013bf7213db8965"
+  integrity sha512-NMuY3n8Bfe+sPCdrUQQSFkOLFqlQYkg1C0SuqvJG4HVU8ukZ7IH2gy+HFGXNuVitFPapmHTPT8NjbZ+YrunZQw==
+
+"@supabase/cli-linux-arm64-musl@2.117.0":
+  version "2.117.0"
+  resolved "https://registry.yarnpkg.com/@supabase/cli-linux-arm64-musl/-/cli-linux-arm64-musl-2.117.0.tgz#05c2f2a75ee4409bd42aebd8833493b1a877737c"
+  integrity sha512-n5yZuBbBD5MnWqczezH72GAEfdTBHBk9Ei/pgpCnAJtClei9QQsiN1UZNw2A7K1EP4VWxgO/YZr3gFYgFFH1WQ==
+
+"@supabase/cli-linux-arm64@2.117.0":
+  version "2.117.0"
+  resolved "https://registry.yarnpkg.com/@supabase/cli-linux-arm64/-/cli-linux-arm64-2.117.0.tgz#f521fbc9e6ecee24ce505aa7ac0c71b1c0d31e15"
+  integrity sha512-CcMHEB8znY9usMJ2dwAKQV06XIYHzLgnq1KY6HzVT9XmXo0qZxTifC/oWgHX39SmCFm7a3HR4K5J95ysYz+8Hg==
+
+"@supabase/cli-linux-x64-musl@2.117.0":
+  version "2.117.0"
+  resolved "https://registry.yarnpkg.com/@supabase/cli-linux-x64-musl/-/cli-linux-x64-musl-2.117.0.tgz#3eb9734557a2beb4780a223d857d3db2096ea78b"
+  integrity sha512-rlVDN5kXTOe+50wFN7DywFFx956XoYpEJpDkADvZ3k+qL5+7jGxSzQN/7xhHqlhjtSlHfx4QlxajfOerJNnrlg==
+
+"@supabase/cli-linux-x64@2.117.0":
+  version "2.117.0"
+  resolved "https://registry.yarnpkg.com/@supabase/cli-linux-x64/-/cli-linux-x64-2.117.0.tgz#c2367c0e929ff1c3d4d893d15b616e764f66aa89"
+  integrity sha512-qDJEURD/YajKD/OQ91O9XNHB/LHK9V8xZ9qGiUQCFhP9OAvMQjUT12j8k/mgTe4PqIxigGpfvm+eNxRcKnU9Rw==
+
+"@supabase/cli-windows-arm64@2.117.0":
+  version "2.117.0"
+  resolved "https://registry.yarnpkg.com/@supabase/cli-windows-arm64/-/cli-windows-arm64-2.117.0.tgz#203bbfe281b66cbda664fb06b167f54c83de3a1c"
+  integrity sha512-JNjI4dHhogjx1994jNoV9uUMioCrdzfdDJDeq0rZhYEepBGE9W+2gLniBQfQRzGxXK81mg5K3p9CTJYBZzbAKg==
+
+"@supabase/cli-windows-x64@2.117.0":
+  version "2.117.0"
+  resolved "https://registry.yarnpkg.com/@supabase/cli-windows-x64/-/cli-windows-x64-2.117.0.tgz#a8e93b4548c7bd713dd8cf6bca032769d4123bc2"
+  integrity sha512-oFmeLMwgWAyQhzPoR6w+eUOfyJcRMNHN2Ju4BxBtpZ9vW+dO1bAsWd7aVVcpn1sgHA/ptM8U48P+se5yZR7BdQ==
+
 "@supabase/functions-js@2.4.6":
   version "2.4.6"
   resolved "http://r.npm.sankuai.com/@supabase/functions-js/download/@supabase/functions-js-2.4.6.tgz#36e065df0c993fe9d2f01f442c54603da99c9608"
@@ -1467,11 +1502,6 @@
     "@types/prop-types" "*"
     csstype "^3.0.2"
 
-"@types/triple-beam@^1.3.2":
-  version "1.3.5"
-  resolved "http://r.npm.sankuai.com/@types/triple-beam/download/@types/triple-beam-1.3.5.tgz#74fef9ffbaa198eb8b588be029f38b00299caa2c"
-  integrity sha1-dP75/7qhmOuLWIvgKfOLACmcqiw=
-
 "@types/unist@*", "@types/unist@^3.0.0":
   version "3.0.3"
   resolved "http://r.npm.sankuai.com/@types/unist/download/@types/unist-3.0.3.tgz#acaab0f919ce69cce629c2d4ed2eb4adc1b6c20c"
@@ -1664,11 +1694,6 @@ async-function@^1.0.0:
   version "1.0.0"
   resolved "http://r.npm.sankuai.com/async-function/download/async-function-1.0.0.tgz#509c9fca60eaf85034c6829838188e4e4c8ffb2b"
   integrity sha1-UJyfymDq+FA0xoKYOBiOTkyP+ys=
-
-async@^3.2.3:
-  version "3.2.6"
-  resolved "http://r.npm.sankuai.com/async/download/async-3.2.6.tgz#1b0728e14929d51b85b449b7f06e27c1145e38ce"
-  integrity sha1-Gwco4Ukp1RuFtEm38G4nwRReOM4=
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -1867,13 +1892,6 @@ cmdk@^1.0.0:
     "@radix-ui/react-id" "^1.1.0"
     "@radix-ui/react-primitive" "^2.0.2"
 
-color-convert@^1.9.3:
-  version "1.9.3"
-  resolved "http://r.npm.sankuai.com/color-convert/download/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
-  integrity sha1-u3GFBpDh8TZWfeYp0tVHHe2kweg=
-  dependencies:
-    color-name "1.1.3"
-
 color-convert@^2.0.1:
   version "2.0.1"
   resolved "http://r.npm.sankuai.com/color-convert/download/color-convert-2.0.1.tgz#72d3a68d598c9bdb3af2ad1e84f21d896abd4de3"
@@ -1881,39 +1899,10 @@ color-convert@^2.0.1:
   dependencies:
     color-name "~1.1.4"
 
-color-name@1.1.3:
-  version "1.1.3"
-  resolved "http://r.npm.sankuai.com/color-name/download/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
-  integrity sha1-p9BVi9icQveV3UIyj3QIMcpTvCU=
-
-color-name@^1.0.0, color-name@~1.1.4:
+color-name@~1.1.4:
   version "1.1.4"
   resolved "http://r.npm.sankuai.com/color-name/download/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha1-wqCah6y95pVD3m9j+jmVyCbFNqI=
-
-color-string@^1.6.0:
-  version "1.9.1"
-  resolved "http://r.npm.sankuai.com/color-string/download/color-string-1.9.1.tgz#4467f9146f036f855b764dfb5bf8582bf342c7a4"
-  integrity sha1-RGf5FG8Db4Vbdk37W/hYK/NCx6Q=
-  dependencies:
-    color-name "^1.0.0"
-    simple-swizzle "^0.2.2"
-
-color@^3.1.3:
-  version "3.2.1"
-  resolved "http://r.npm.sankuai.com/color/download/color-3.2.1.tgz#3544dc198caf4490c3ecc9a790b54fe9ff45e164"
-  integrity sha1-NUTcGYyvRJDD7MmnkLVP6f9F4WQ=
-  dependencies:
-    color-convert "^1.9.3"
-    color-string "^1.6.0"
-
-colorspace@1.1.x:
-  version "1.1.4"
-  resolved "http://r.npm.sankuai.com/colorspace/download/colorspace-1.1.4.tgz#8d442d1186152f60453bf8070cd66eb364e59243"
-  integrity sha1-jUQtEYYVL2BFO/gHDNZus2TlkkM=
-  dependencies:
-    color "^3.1.3"
-    text-hex "1.0.x"
 
 combined-stream@^1.0.8:
   version "1.0.8"
@@ -2174,6 +2163,16 @@ eastasianwidth@^0.2.0:
   resolved "http://r.npm.sankuai.com/eastasianwidth/download/eastasianwidth-0.2.0.tgz#696ce2ec0aa0e6ea93a397ffcf24aa7840c827cb"
   integrity sha1-aWzi7Aqg5uqTo5f/zySqeEDIJ8s=
 
+eciesjs@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/eciesjs/-/eciesjs-0.5.0.tgz#01191700634ec0fdc0925053df3bc7e0359361c1"
+  integrity sha512-s0J9SEVYAEPg7J63GFMApLYzPH9VNIQIyC6s15JpnqVc0TqcKWdbgFlnAweEBRyMmko2dcs2sfC83Hj4J43tuA==
+  dependencies:
+    "@ecies/ciphers" "^0.2.6"
+    "@noble/ciphers" "^1.3.0"
+    "@noble/curves" "^1.9.7"
+    "@noble/hashes" "^1.8.0"
+
 electron-to-chromium@^1.5.218:
   version "1.5.222"
   resolved "http://r.npm.sankuai.com/electron-to-chromium/download/electron-to-chromium-1.5.222.tgz#965c93783ad989116b74593ae3068b9466fdb237"
@@ -2206,11 +2205,6 @@ emoji-regex@^9.2.2:
   version "9.2.2"
   resolved "http://r.npm.sankuai.com/emoji-regex/download/emoji-regex-9.2.2.tgz#840c8803b0d8047f4ff0cf963176b32d4ef3ed72"
   integrity sha1-hAyIA7DYBH9P8M+WMXazLU7z7XI=
-
-enabled@2.0.x:
-  version "2.0.0"
-  resolved "http://r.npm.sankuai.com/enabled/download/enabled-2.0.0.tgz#f9dd92ec2d6f4bbc0d5d1e64e21d61cd4665e7c2"
-  integrity sha1-+d2S7C1vS7wNXR5k4h1hzUZl58I=
 
 es-abstract@^1.17.5, es-abstract@^1.23.2, es-abstract@^1.23.3, es-abstract@^1.23.5, es-abstract@^1.23.6, es-abstract@^1.23.9, es-abstract@^1.24.0:
   version "1.24.0"
@@ -2558,24 +2552,12 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
-fecha@^4.2.0:
-  version "4.2.3"
-  resolved "http://r.npm.sankuai.com/fecha/download/fecha-4.2.3.tgz#4d9ccdbc61e8629b259fdca67e65891448d569fd"
-  integrity sha1-TZzNvGHoYpsln9ymfmWJFEjVaf0=
-
 file-entry-cache@^6.0.1:
   version "6.0.1"
   resolved "http://r.npm.sankuai.com/file-entry-cache/download/file-entry-cache-6.0.1.tgz#211b2dd9659cb0394b073e7323ac3c933d522027"
   integrity sha1-IRst2WWcsDlLBz5zI6w8kz1SICc=
   dependencies:
     flat-cache "^3.0.4"
-
-file-stream-rotator@^0.6.1:
-  version "0.6.1"
-  resolved "http://r.npm.sankuai.com/file-stream-rotator/download/file-stream-rotator-0.6.1.tgz#007019e735b262bb6c6f0197e58e5c87cb96cec3"
-  integrity sha1-AHAZ5zWyYrtsbwGX5Y5ch8uWzsM=
-  dependencies:
-    moment "^2.29.1"
 
 fill-range@^7.1.1:
   version "7.1.1"
@@ -2605,11 +2587,6 @@ flatted@^3.2.9:
   version "3.3.3"
   resolved "http://r.npm.sankuai.com/flatted/download/flatted-3.3.3.tgz#67c8fad95454a7c7abebf74bb78ee74a44023358"
   integrity sha1-Z8j62VRUp8er6/dLt47nSkQCM1g=
-
-fn.name@1.x.x:
-  version "1.1.0"
-  resolved "http://r.npm.sankuai.com/fn.name/download/fn.name-1.1.0.tgz#26cad8017967aea8731bc42961d04a3d5988accc"
-  integrity sha1-JsrYAXlnrqhzG8QpYdBKPVmIrMw=
 
 follow-redirects@^1.15.6:
   version "1.15.11"
@@ -2901,7 +2878,7 @@ inflight@^1.0.4:
     once "^1.3.0"
     wrappy "1"
 
-inherits@2, inherits@^2.0.3:
+inherits@2:
   version "2.0.4"
   resolved "http://r.npm.sankuai.com/inherits/download/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha1-D6LGT5MpF8NDOg3tVTY6rjdBa3w=
@@ -2951,11 +2928,6 @@ is-array-buffer@^3.0.4, is-array-buffer@^3.0.5:
     call-bind "^1.0.8"
     call-bound "^1.0.3"
     get-intrinsic "^1.2.6"
-
-is-arrayish@^0.3.1:
-  version "0.3.2"
-  resolved "http://r.npm.sankuai.com/is-arrayish/download/is-arrayish-0.3.2.tgz#4574a2ae56f7ab206896fb431eaeed066fdf8f03"
-  integrity sha1-RXSirlb3qyBolvtDHq7tBm/fjwM=
 
 is-async-function@^2.0.0:
   version "2.1.1"
@@ -3118,11 +3090,6 @@ is-shared-array-buffer@^1.0.4:
   dependencies:
     call-bound "^1.0.3"
 
-is-stream@^2.0.0:
-  version "2.0.1"
-  resolved "http://r.npm.sankuai.com/is-stream/download/is-stream-2.0.1.tgz#fac1e3d53b97ad5a9d0ae9cef2389f5810a5c077"
-  integrity sha1-+sHj1TuXrVqdCunO8jifWBClwHc=
-
 is-string@^1.1.1:
   version "1.1.1"
   resolved "http://r.npm.sankuai.com/is-string/download/is-string-1.1.1.tgz#92ea3f3d5c5b6e039ca8677e5ac8d07ea773cbb9"
@@ -3203,6 +3170,11 @@ jiti@^1.21.6:
   resolved "http://r.npm.sankuai.com/jiti/download/jiti-1.21.7.tgz#9dd81043424a3d28458b193d965f0d18a2300ba9"
   integrity sha1-ndgQQ0JKPShFixk9ll8NGKIwC6k=
 
+jose@^6.2.10:
+  version "6.2.12"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-6.2.12.tgz#65663e146edd010b98ece83f81737d3aa95fd0d7"
+  integrity sha512-9NiFmJEex0sy2Dk58j2UGBSHgUs2ypF9eZSu4L6vjOX3Dp96Sw1F3uL+H+D1sx02jZZdzUT0HgvCy59CuvXcWw==
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "http://r.npm.sankuai.com/js-tokens/download/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -3257,11 +3229,6 @@ keyv@^4.5.3:
   dependencies:
     json-buffer "3.0.1"
 
-kuler@^2.0.0:
-  version "2.0.0"
-  resolved "http://r.npm.sankuai.com/kuler/download/kuler-2.0.0.tgz#e2c570a3800388fb44407e851531c1d670b061b3"
-  integrity sha1-4sVwo4ADiPtEQH6FFTHB1nCwYbM=
-
 levn@^0.4.1:
   version "0.4.1"
   resolved "http://r.npm.sankuai.com/levn/download/levn-0.4.1.tgz#ae4562c007473b932a6200d403268dd2fffc6ade"
@@ -3296,18 +3263,6 @@ lodash@^4.17.21:
   version "4.17.21"
   resolved "http://r.npm.sankuai.com/lodash/download/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha1-Z5WRxWTDv/quhFTPCz3zcMPWkRw=
-
-logform@^2.7.0:
-  version "2.7.0"
-  resolved "http://r.npm.sankuai.com/logform/download/logform-2.7.0.tgz#cfca97528ef290f2e125a08396805002b2d060d1"
-  integrity sha1-z8qXUo7ykPLhJaCDloBQArLQYNE=
-  dependencies:
-    "@colors/colors" "1.6.0"
-    "@types/triple-beam" "^1.3.2"
-    fecha "^4.2.0"
-    ms "^2.1.1"
-    safe-stable-stringify "^2.3.1"
-    triple-beam "^1.3.0"
 
 longest-streak@^3.0.0:
   version "3.1.0"
@@ -3845,11 +3800,6 @@ minimatch@^9.0.4:
   resolved "http://r.npm.sankuai.com/minipass/download/minipass-7.1.2.tgz#93a9626ce5e5e66bd4db86849e7515e92340a707"
   integrity sha1-k6libOXl5mvU24aEnnUV6SNApwc=
 
-moment@^2.29.1:
-  version "2.30.1"
-  resolved "http://r.npm.sankuai.com/moment/download/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
-  integrity sha1-+MkcB7enhuMMWZJt9TC06slpdK4=
-
 motion-dom@^11.18.1:
   version "11.18.1"
   resolved "http://r.npm.sankuai.com/motion-dom/download/motion-dom-11.18.1.tgz#e7fed7b7dc6ae1223ef1cce29ee54bec826dc3f2"
@@ -3862,7 +3812,7 @@ motion-utils@^11.18.1:
   resolved "http://r.npm.sankuai.com/motion-utils/download/motion-utils-11.18.1.tgz#671227669833e991c55813cf337899f41327db5b"
   integrity sha1-ZxInZpgz6ZHFWBPPM3iZ9BMn21s=
 
-ms@^2.1.1, ms@^2.1.3:
+ms@^2.1.3:
   version "2.1.3"
   resolved "http://r.npm.sankuai.com/ms/download/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha1-V0yBOM4dK1hh8LRFedut1gxmFbI=
@@ -3974,13 +3924,6 @@ once@^1.3.0:
   integrity sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
   dependencies:
     wrappy "1"
-
-one-time@^1.0.0:
-  version "1.0.0"
-  resolved "http://r.npm.sankuai.com/one-time/download/one-time-1.0.0.tgz#e06bc174aed214ed58edede573b433bbf827cb45"
-  integrity sha1-4GvBdK7SFO1Y7e3lc7Qzu/gny0U=
-  dependencies:
-    fn.name "1.x.x"
 
 optionator@^0.9.3:
   version "0.9.4"
@@ -4311,15 +4254,6 @@ read-cache@^1.0.0:
   dependencies:
     pify "^2.3.0"
 
-readable-stream@^3.4.0, readable-stream@^3.6.2:
-  version "3.6.2"
-  resolved "http://r.npm.sankuai.com/readable-stream/download/readable-stream-3.6.2.tgz#56a9b36ea965c00c5a93ef31eb111a0f11056967"
-  integrity sha1-VqmzbqllwAxak+8x6xEaDxEFaWc=
-  dependencies:
-    inherits "^2.0.3"
-    string_decoder "^1.1.1"
-    util-deprecate "^1.0.1"
-
 readdirp@~3.6.0:
   version "3.6.0"
   resolved "http://r.npm.sankuai.com/readdirp/download/readdirp-3.6.0.tgz#74a370bd857116e245b29cc97340cd431a02a6c7"
@@ -4500,11 +4434,6 @@ safe-array-concat@^1.1.3:
     has-symbols "^1.1.0"
     isarray "^2.0.5"
 
-safe-buffer@~5.2.0:
-  version "5.2.1"
-  resolved "http://r.npm.sankuai.com/safe-buffer/download/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
-  integrity sha1-Hq+fqb2x/dTsdfWPnNtOa3gn7sY=
-
 safe-push-apply@^1.0.0:
   version "1.0.0"
   resolved "http://r.npm.sankuai.com/safe-push-apply/download/safe-push-apply-1.0.0.tgz#01850e981c1602d398c85081f360e4e6d03d27f5"
@@ -4521,11 +4450,6 @@ safe-regex-test@^1.1.0:
     call-bound "^1.0.2"
     es-errors "^1.3.0"
     is-regex "^1.2.1"
-
-safe-stable-stringify@^2.3.1:
-  version "2.5.0"
-  resolved "http://r.npm.sankuai.com/safe-stable-stringify/download/safe-stable-stringify-2.5.0.tgz#4ca2f8e385f2831c432a719b108a3bf7af42a1dd"
-  integrity sha1-TKL444XygxxDKnGbEIo7969Cod0=
 
 scheduler@^0.23.2:
   version "0.23.2"
@@ -4627,13 +4551,6 @@ signal-exit@^4.0.1:
   resolved "http://r.npm.sankuai.com/signal-exit/download/signal-exit-4.1.0.tgz#952188c1cbd546070e2dd20d0f41c0ae0530cb04"
   integrity sha1-lSGIwcvVRgcOLdIND0HArgUwywQ=
 
-simple-swizzle@^0.2.2:
-  version "0.2.2"
-  resolved "http://r.npm.sankuai.com/simple-swizzle/download/simple-swizzle-0.2.2.tgz#a4da6b635ffcccca33f70d17cb92592de95e557a"
-  integrity sha1-pNprY1/8zMoz9w0Xy5JZLeleVXo=
-  dependencies:
-    is-arrayish "^0.3.1"
-
 sonner@^1.5.0:
   version "1.7.4"
   resolved "http://r.npm.sankuai.com/sonner/download/sonner-1.7.4.tgz#4c39820db86623800a17115c8970796aa862133a"
@@ -4648,11 +4565,6 @@ space-separated-tokens@^2.0.0:
   version "2.0.2"
   resolved "http://r.npm.sankuai.com/space-separated-tokens/download/space-separated-tokens-2.0.2.tgz#1ecd9d2350a3844572c3f4a312bceb018348859f"
   integrity sha1-Hs2dI1CjhEVyw/SjErzrAYNIhZ8=
-
-stack-trace@0.0.x:
-  version "0.0.10"
-  resolved "http://r.npm.sankuai.com/stack-trace/download/stack-trace-0.0.10.tgz#547c70b347e8d32b4e108ea1a2a159e5fdde19c0"
-  integrity sha1-VHxws0fo0ytOEI6hoqFZ5f3eGcA=
 
 stop-iteration-iterator@^1.1.0:
   version "1.1.0"
@@ -4748,13 +4660,6 @@ string.prototype.trimstart@^1.0.8:
     define-properties "^1.2.1"
     es-object-atoms "^1.0.0"
 
-string_decoder@^1.1.1:
-  version "1.3.0"
-  resolved "http://r.npm.sankuai.com/string_decoder/download/string_decoder-1.3.0.tgz#42f114594a46cf1a8e30b0a84f56c78c3edac21e"
-  integrity sha1-QvEUWUpGzxqOMLCoT1bHjD7awh4=
-  dependencies:
-    safe-buffer "~5.2.0"
-
 stringify-entities@^4.0.0:
   version "4.0.4"
   resolved "http://r.npm.sankuai.com/stringify-entities/download/stringify-entities-4.0.4.tgz#b3b79ef5f277cc4ac73caeb0236c5ba939b3a4f3"
@@ -4816,6 +4721,23 @@ sucrase@^3.35.0:
     pirates "^4.0.1"
     ts-interface-checker "^0.1.9"
 
+supabase@^2.117.0:
+  version "2.117.0"
+  resolved "https://registry.yarnpkg.com/supabase/-/supabase-2.117.0.tgz#e7b1dbef31ce23079405fea296d905be9d12252c"
+  integrity sha512-V4UDf/kgrqllHbc22vs89bL7pdBj3xhVolvDflByS5FuJb+tXpWhHZxYEbBQspxA0fBzaj+lpiedB72xTAZA4w==
+  dependencies:
+    eciesjs "^0.5.0"
+    jose "^6.2.10"
+  optionalDependencies:
+    "@supabase/cli-darwin-arm64" "2.117.0"
+    "@supabase/cli-darwin-x64" "2.117.0"
+    "@supabase/cli-linux-arm64" "2.117.0"
+    "@supabase/cli-linux-arm64-musl" "2.117.0"
+    "@supabase/cli-linux-x64" "2.117.0"
+    "@supabase/cli-linux-x64-musl" "2.117.0"
+    "@supabase/cli-windows-arm64" "2.117.0"
+    "@supabase/cli-windows-x64" "2.117.0"
+
 supports-color@^7.1.0:
   version "7.2.0"
   resolved "http://r.npm.sankuai.com/supports-color/download/supports-color-7.2.0.tgz#1b7dcdcb32b8138801b3e478ba6a51caa89648da"
@@ -4866,11 +4788,6 @@ tailwindcss@^3.4.4:
     resolve "^1.22.8"
     sucrase "^3.35.0"
 
-text-hex@1.0.x:
-  version "1.0.0"
-  resolved "http://r.npm.sankuai.com/text-hex/download/text-hex-1.0.0.tgz#69dc9c1b17446ee79a92bf5b884bb4b9127506f5"
-  integrity sha1-adycGxdEbueakr9biEu0uRJ1BvU=
-
 text-table@^0.2.0:
   version "0.2.0"
   resolved "http://r.npm.sankuai.com/text-table/download/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
@@ -4911,11 +4828,6 @@ trim-lines@^3.0.0:
   version "3.0.1"
   resolved "http://r.npm.sankuai.com/trim-lines/download/trim-lines-3.0.1.tgz#d802e332a07df861c48802c04321017b1bd87338"
   integrity sha1-2ALjMqB9+GHEiALAQyEBexvYczg=
-
-triple-beam@^1.3.0, triple-beam@^1.4.1:
-  version "1.4.1"
-  resolved "http://r.npm.sankuai.com/triple-beam/download/triple-beam-1.4.1.tgz#6fde70271dc6e5d73ca0c3b24e2d92afb7441984"
-  integrity sha1-b95wJx3G5dc8oMOyTi2Sr7dEGYQ=
 
 trough@^2.0.0:
   version "2.2.0"
@@ -5090,7 +5002,7 @@ use-sync-external-store@^1.5.0:
   resolved "http://r.npm.sankuai.com/use-sync-external-store/download/use-sync-external-store-1.5.0.tgz#55122e2a3edd2a6c106174c27485e0fd59bcfca0"
   integrity sha1-VRIuKj7dKmwQYXTCdIXg/Vm8/KA=
 
-util-deprecate@^1.0.1, util-deprecate@^1.0.2:
+util-deprecate@^1.0.2:
   version "1.0.2"
   resolved "http://r.npm.sankuai.com/util-deprecate/download/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
@@ -5221,42 +5133,6 @@ which@^2.0.1:
   integrity sha1-fGqN0KY2oDJ+ELWckobu6T8/UbE=
   dependencies:
     isexe "^2.0.0"
-
-winston-daily-rotate-file@^5.0.0:
-  version "5.0.0"
-  resolved "http://r.npm.sankuai.com/winston-daily-rotate-file/download/winston-daily-rotate-file-5.0.0.tgz#8cd94800025490e47c00ec892b655a5821f4266d"
-  integrity sha1-jNlIAAJUkOR8AOyJK2VaWCH0Jm0=
-  dependencies:
-    file-stream-rotator "^0.6.1"
-    object-hash "^3.0.0"
-    triple-beam "^1.4.1"
-    winston-transport "^4.7.0"
-
-winston-transport@^4.7.0, winston-transport@^4.9.0:
-  version "4.9.0"
-  resolved "http://r.npm.sankuai.com/winston-transport/download/winston-transport-4.9.0.tgz#3bba345de10297654ea6f33519424560003b3bf9"
-  integrity sha1-O7o0XeECl2VOpvM1GUJFYAA7O/k=
-  dependencies:
-    logform "^2.7.0"
-    readable-stream "^3.6.2"
-    triple-beam "^1.3.0"
-
-winston@^3.17.0:
-  version "3.17.0"
-  resolved "http://r.npm.sankuai.com/winston/download/winston-3.17.0.tgz#74b8665ce9b4ea7b29d0922cfccf852a08a11423"
-  integrity sha1-dLhmXOm06nsp0JIs/M+FKgihFCM=
-  dependencies:
-    "@colors/colors" "^1.6.0"
-    "@dabh/diagnostics" "^2.0.2"
-    async "^3.2.3"
-    is-stream "^2.0.0"
-    logform "^2.7.0"
-    one-time "^1.0.0"
-    readable-stream "^3.4.0"
-    safe-stable-stringify "^2.3.1"
-    stack-trace "0.0.x"
-    triple-beam "^1.3.0"
-    winston-transport "^4.9.0"
 
 word-wrap@^1.2.5:
   version "1.2.5"
